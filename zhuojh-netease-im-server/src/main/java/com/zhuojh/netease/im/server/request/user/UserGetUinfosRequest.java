@@ -30,7 +30,7 @@ public class UserGetUinfosRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/getUinfos.action";
+		return "user/getUinfos.action";
 	}
 
 	/** 用户帐号（例如：JSONArray对应的accid串，如：["zhangsan"]，如果解析出错，会报414）（一次查询最多为200））。 */

@@ -30,7 +30,7 @@ public class UserUnblockRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/unblock.action";
+		return "user/unblock.action";
 	}
 
 	/**

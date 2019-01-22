@@ -29,7 +29,7 @@ public class UserUpdateRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/update.action";
+		return "user/update.action";
 	}
 
 	/**

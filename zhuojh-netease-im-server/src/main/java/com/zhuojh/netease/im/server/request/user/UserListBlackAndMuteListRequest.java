@@ -30,7 +30,7 @@ public class UserListBlackAndMuteListRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/listBlackAndMuteList.action";
+		return "user/listBlackAndMuteList.action";
 	}
 
 	/**

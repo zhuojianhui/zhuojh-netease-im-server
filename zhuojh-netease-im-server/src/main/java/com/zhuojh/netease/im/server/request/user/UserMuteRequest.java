@@ -31,7 +31,7 @@ public class UserMuteRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/mute.action";
+		return "user/mute.action";
 	}
 
 	/**

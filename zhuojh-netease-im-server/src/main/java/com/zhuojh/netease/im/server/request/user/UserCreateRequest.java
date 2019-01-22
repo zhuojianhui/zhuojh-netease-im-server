@@ -31,7 +31,7 @@ public class UserCreateRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/create.action";
+		return "user/create.action";
 	}
 
 	/**
@@ -69,6 +69,16 @@ public class UserCreateRequest extends BaseHttpRequest {
 
 	/** ex:用户名片扩展字段，最大长度1024字符，用户可自行扩展，建议封装成JSON字符串. */
 	private String ex;
+
+	/**
+	 * Creates a new instance of UserCreateRequest. <br>
+	 * 参数为必填字段
+	 * @param accid
+	 */
+	public UserCreateRequest(String accid) {
+		super();
+		this.accid = accid;
+	}
 
 	public String getAccid() {
 		return accid;

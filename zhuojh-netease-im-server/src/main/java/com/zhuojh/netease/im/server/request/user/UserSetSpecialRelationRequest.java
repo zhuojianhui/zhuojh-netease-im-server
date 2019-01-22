@@ -30,7 +30,7 @@ public class UserSetSpecialRelationRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/setSpecialRelation.action";
+		return "user/setSpecialRelation.action";
 	}
 
 	/**

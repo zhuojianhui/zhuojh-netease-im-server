@@ -31,7 +31,7 @@ public class UserBlockRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/block.action";
+		return "user/block.action";
 	}
 
 	/**

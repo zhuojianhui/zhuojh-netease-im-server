@@ -30,7 +30,7 @@ public class UserSetDonnopRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/setDonnop.action";
+		return "user/setDonnop.action";
 	}
 
 	/**

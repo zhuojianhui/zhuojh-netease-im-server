@@ -31,7 +31,7 @@ public class UserRefreshTokenRequest extends BaseHttpRequest {
 
 	@Override
 	public String getPath() {
-		return "/user/refreshToken.action";
+		return "user/refreshToken.action";
 	}
 
 	/**
