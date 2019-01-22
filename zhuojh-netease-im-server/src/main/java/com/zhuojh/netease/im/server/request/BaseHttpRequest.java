@@ -21,6 +21,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Function: 用于规范. <br>
  * Reason: TODO ADD REASON. <br>
@@ -33,13 +35,13 @@ public abstract class BaseHttpRequest implements HttpRequest, Serializable {
 
 	static final String NIM_DOMAIN = "https://api.netease.im/nimserver/";
 
+	@JsonIgnore
 	@Override
 	public HttpHeaders getHeaders() {
-
-		// TODO Auto-generated method stub
-		return null;
+		return new HttpRequestHeader().getHeaders();
 	}
 
+	@JsonIgnore
 	@Override
 	public URI getURI() {
 		try {
@@ -50,11 +52,13 @@ public abstract class BaseHttpRequest implements HttpRequest, Serializable {
 		return null;
 	}
 
+	@JsonIgnore
 	@Override
 	public HttpMethod getMethod() {
 		return HttpMethod.POST;
 	}
 
+	@JsonIgnore
 	abstract public String getPath();
 
 }

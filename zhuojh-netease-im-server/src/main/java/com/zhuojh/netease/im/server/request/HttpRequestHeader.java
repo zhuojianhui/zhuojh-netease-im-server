@@ -13,6 +13,7 @@
 
 package com.zhuojh.netease.im.server.request;
 
+import java.nio.charset.Charset;
 import java.util.Date;
 
 import org.springframework.http.HttpHeaders;
@@ -32,31 +33,26 @@ import com.zhuojh.netease.im.server.util.CheckSumBuilder;
 public class HttpRequestHeader implements HttpMessage {
 
 	public static String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
+	public static String APP_KEY = "";
+	public static String APP_SECRET = "";
+	public static String NONCE = "";
+	public static MediaType MEDIA_TYPE = new MediaType(MediaType.APPLICATION_FORM_URLENCODED, Charset.forName("UTF-8"));
+	// public static MediaType MEDIA_TYPE = MediaType.APPLICATION_FORM_URLENCODED;
 
 	@Override
 	public HttpHeaders getHeaders() {
 		String curTime = String.valueOf((new Date()).getTime() / 1000L);
-		String checkSum = CheckSumBuilder.getCheckSum(appSecret, nonce, curTime);// 参考 计算CheckSum的java代码
+		// 参考 计算CheckSum的java代码
+		String checkSum = CheckSumBuilder.getCheckSum(APP_SECRET, NONCE, curTime);
 
-		HttpHeaders requestHeaders = new HttpHeaders();
 		// 设置请求的header
-		requestHeaders.add("AppKey", appKey);
-		requestHeaders.add("Nonce", nonce);
+		HttpHeaders requestHeaders = new HttpHeaders();
+		requestHeaders.add("AppKey", APP_KEY);
+		requestHeaders.add("Nonce", NONCE);
 		requestHeaders.add("CurTime", curTime);
 		requestHeaders.add("CheckSum", checkSum);
-		requestHeaders.add(HttpHeaders.CONTENT_TYPE, CONTENT_TYPE);
+		requestHeaders.setContentType(MEDIA_TYPE);
 		return requestHeaders;
 	}
-
-	/** appKey:开发者平台分配的appkey. */
-	private String appKey;
-	/** appSecret:开发者平台设置的应用密钥. */
-	private String appSecret;
-	/** nonce:随机数（最大长度128个字符）. */
-	private String nonce;
-	/** curTime:当前UTC时间戳，从1970年1月1日0点0 分0 秒开始到现在的秒数(String). */
-	private String curTime;
-	/** checkSum:SHA1(AppSecret + Nonce + CurTime)，三个参数拼接的字符串，进行SHA1哈希计算，转化成16进制字符(String，小写). */
-	private String checkSum;
 
 }
