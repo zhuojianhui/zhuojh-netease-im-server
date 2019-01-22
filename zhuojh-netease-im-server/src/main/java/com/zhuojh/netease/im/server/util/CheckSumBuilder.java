@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019, Thinkingbar.cn. All rights reserved.
+ * Copyright (C) 2019, the original author or authors. All rights reserved.
  *
  * This program and the accompanying materials are dual-licensed under
  * either the terms of the Eclipse Public License v1.0 as published by
