@@ -11,7 +11,7 @@
  * as published by the Free Software Foundation.
 */
 
-package com.zhuojh.netease.im.server.service.dao;
+package com.zhuojh.netease.im.server.dao;
 
 import com.zhuojh.netease.im.server.request.BaseHttpRequest;
 

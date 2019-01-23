@@ -11,27 +11,23 @@
  * as published by the Free Software Foundation.
 */
 
-package com.zhuojh.netease.im.server.service.dao.impl;
+package com.zhuojh.netease.im.server.dao.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zhuojh.netease.im.server.dao.IRestDao;
 import com.zhuojh.netease.im.server.request.BaseHttpRequest;
-import com.zhuojh.netease.im.server.service.dao.IRestDao;
 
 /**
  * Function: Rest数据访问实现类. <br>
@@ -51,43 +47,27 @@ public class RestDao implements IRestDao {
 
 	@Override
 	public <T> T execute(BaseHttpRequest request, Class<T> responseType) {
-		// 如果是表单提交
-		List<NameValuePair> nvpList = new ArrayList<NameValuePair>();
-		LinkedMultiValueMap<String, String> bodyMap = new LinkedMultiValueMap<String, String>();
+		// TODO 此处只适用于网易云的请求格式，表单提交使用键值对
+		MultiValueMap<String, Object> bodyMap = new LinkedMultiValueMap<>();
 		// 得到类对象
 		Class<?> clazz = (Class<?>) request.getClass();
 		/* 得到类中的所有属性集合 */
 		Field[] fields = clazz.getDeclaredFields();
 		try {
-
-			Object val = null;
-			for (int index = 0; index < fields.length; index++) {
-				Field field = fields[index];
-				field.setAccessible(true); // 设置此属性是可以访问的
+			Object value = null;
+			for (Field field : fields) {
 				if (!Modifier.isStatic(field.getModifiers())) {
-					val = field.get(request);
-					if (val == null) {
-						val = "";
-					} else {
-						bodyMap.add(field.getName(), val.toString());
+					value = field.get(request);
+					if (Objects.isNull(value)) {
+						// TODO 非常基础类型的字段需要转成Json字符串
+						bodyMap.add(field.getName(), value);
 					}
-					nvpList.add(new BasicNameValuePair(field.getName(), val.toString()));
 				}
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		String writeValueAsString = null;
-		try {
-			writeValueAsString = objectMapper.writeValueAsString(request);
-			System.out.print(writeValueAsString);
-		} catch (JsonProcessingException e) {
-
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-		}
-		HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = new HttpEntity<>(bodyMap, request.getHeaders());
+		HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(bodyMap, request.getHeaders());
 		ResponseEntity<T> responseEntity = restTemplate.exchange(request.getURI(), request.getMethod(), httpEntity,
 				responseType);
 		return responseEntity.getBody();

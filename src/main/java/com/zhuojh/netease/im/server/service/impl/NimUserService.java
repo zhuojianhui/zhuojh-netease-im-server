@@ -16,11 +16,11 @@ package com.zhuojh.netease.im.server.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zhuojh.netease.im.server.dao.IRestDao;
 import com.zhuojh.netease.im.server.request.user.UserCreateRequest;
 import com.zhuojh.netease.im.server.request.user.UserUpdateRequest;
 import com.zhuojh.netease.im.server.response.user.UserCreateResponse;
 import com.zhuojh.netease.im.server.service.INimUserService;
-import com.zhuojh.netease.im.server.service.dao.IRestDao;
 
 /**
  * Function: 用户服务实现类. <br>
